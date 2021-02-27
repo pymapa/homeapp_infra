@@ -25,7 +25,7 @@ provider "aws" {
 
 module "client_application" {
   env = var.env
-  source  = "../modules/s3-cloudfront-website"
+  source  = "./modules/s3-cloudfront-website"
   certificate_arn = var.certificate_arn
   zone_id = var.zone_id
   domain_name = var.domain_name
