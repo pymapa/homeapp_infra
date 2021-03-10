@@ -4,6 +4,8 @@ variable "www_domain_name" {}
 
 variable "domain_name" {}
 
+variable "api_domain_name" {}
+
 variable "certificate_arn" {}
 
 variable "zone_id" {}
@@ -36,8 +38,16 @@ module "client_application" {
   source  = "./modules/s3-cloudfront-website"
 }
 
-module "fetch-history-function" {
+module "fetch_history_function" {
   env = var.env
   source = "./modules/lambda-s3-function"
   function_version = var.fetch_history_version
+}
+
+module "api_gw" {
+  env = var.env
+  source = "./modules/api-gw"
+  fetch_history_lambda_invoke_arn = module.fetch_history_function.fetch_history_lambda_invoke_arn
+  domain_name = var.api_domain_name
+  certificate_arn = var.certificate_arn
 }

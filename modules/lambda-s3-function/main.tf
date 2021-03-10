@@ -9,7 +9,7 @@ resource "aws_iam_role_policy" "lambda_policy" {
 }
 
 resource "aws_iam_role" "lambda_role" {
-  name               = "lambda_role"
+  name               = "lambda_role-${var.env}"
   assume_role_policy = file("./IAM/lambda_assume_role_policy.json")
 }
 
@@ -19,7 +19,7 @@ locals {
 }
 
 resource "aws_iam_policy" "iam_policy" {
-  name        = "lambda_access-policy"
+  name        = "lambda_access-policy-${var.env}"
   description = "IAM Policy"
 
   policy = <<-POLICY
