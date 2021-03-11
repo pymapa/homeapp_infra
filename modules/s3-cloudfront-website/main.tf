@@ -3,11 +3,11 @@ terraform {
 }
 
 locals {
-  s3_origin_id = "${var.env}.${var.domain_name}"
+  s3_origin_id = var.domain_name
 }
 
 resource "aws_s3_bucket" "www" {
-  bucket = "${var.env}.${var.domain_name}"
+  bucket = "${var.domain_name}"
   acl    = "public-read"
   policy = <<POLICY
 {
@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "www" {
       "Effect":"Allow",
       "Principal": "*",
       "Action":["s3:GetObject"],
-      "Resource":["arn:aws:s3:::${var.env}.${var.domain_name}/*"]
+      "Resource":["arn:aws:s3:::${var.domain_name}/*"]
     }
   ]
 }
