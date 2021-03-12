@@ -6,15 +6,15 @@ variable "domain_name" {}
 
 variable "api_domain_name" {}
 
+variable "cdn_domain_name" {}
+
 variable "certificate_arn" {}
 
 variable "zone_id" {}
 
 variable "aws_region" {}
 
-variable "fetch_history_version" {
-
-}
+variable "fetch_history_version" {}
 
 terraform {
   required_providers {
