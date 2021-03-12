@@ -107,10 +107,6 @@ resource "aws_route53_record" "cname" {
   type    = "CNAME"
   ttl     = "5"
 
-  weighted_routing_policy {
-    weight = 90
-  }
-
   set_identifier = var.env
   records        = [var.domain_name]
 }
