@@ -13,7 +13,7 @@ variable "zone_id" {}
 variable "aws_region" {}
 
 variable "fetch_history_version" {
-  
+
 }
 
 terraform {
@@ -30,24 +30,31 @@ provider "aws" {
 }
 
 module "client_application" {
-  env = var.env
+  env             = var.env
   certificate_arn = var.certificate_arn
-  zone_id = var.zone_id
-  domain_name = var.domain_name
+  zone_id         = var.zone_id
+  domain_name     = var.domain_name
   www_domain_name = var.www_domain_name
-  source  = "./modules/s3-cloudfront-website"
+  source          = "./modules/s3-cloudfront-website"
 }
 
 module "fetch_history_function" {
-  env = var.env
-  source = "./modules/lambda-s3-function"
+  env              = var.env
+  source           = "./modules/lambda-s3-function"
   function_version = var.fetch_history_version
 }
 
 module "api_gw" {
-  env = var.env
-  source = "./modules/api-gw"
+  env                             = var.env
+  source                          = "./modules/api-gw"
   fetch_history_lambda_invoke_arn = module.fetch_history_function.fetch_history_lambda_invoke_arn
-  domain_name = var.api_domain_name
+  domain_name                     = var.api_domain_name
+  certificate_arn                 = var.certificate_arn
+}
+
+module "cdn" {
+  source          = "./modules/cdn"
+  domain_name     = var.cdn_domain_name
+  env             = var.env
   certificate_arn = var.certificate_arn
 }
