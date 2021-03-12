@@ -7,7 +7,7 @@ locals {
 }
 
 resource "aws_s3_bucket" "www" {
-  bucket = "${var.domain_name}"
+  bucket = var.domain_name
   acl    = "public-read"
   policy = <<POLICY
 {
@@ -45,7 +45,7 @@ resource "aws_cloudfront_distribution" "www_distribution" {
     }
 
     domain_name = aws_s3_bucket.www.website_endpoint
-    origin_id = local.s3_origin_id
+    origin_id   = local.s3_origin_id
   }
 
   price_class = "PriceClass_100"
@@ -58,10 +58,10 @@ resource "aws_cloudfront_distribution" "www_distribution" {
     compress               = true
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
-    target_origin_id = local.s3_origin_id
-    min_ttl          = 0
-    default_ttl      = 86400
-    max_ttl          = 31536000
+    target_origin_id       = local.s3_origin_id
+    min_ttl                = 0
+    default_ttl            = 86400
+    max_ttl                = 31536000
 
     forwarded_values {
       query_string = false
@@ -89,7 +89,7 @@ resource "aws_cloudfront_distribution" "www_distribution" {
   }
 }
 
-resource "aws_route53_record" "www" {
+resource "aws_route53_record" "aname" {
   zone_id = var.zone_id
   name    = var.domain_name
   type    = "A"
@@ -99,4 +99,18 @@ resource "aws_route53_record" "www" {
     zone_id                = aws_cloudfront_distribution.www_distribution.hosted_zone_id
     evaluate_target_health = false
   }
+}
+
+resource "aws_route53_record" "cname" {
+  zone_id = var.zone_id
+  name    = var.www_domain_name
+  type    = "CNAME"
+  ttl     = "5"
+
+  weighted_routing_policy {
+    weight = 90
+  }
+
+  set_identifier = var.env
+  records        = [var.domain_name]
 }
