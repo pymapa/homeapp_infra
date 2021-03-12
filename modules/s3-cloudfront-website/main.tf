@@ -103,10 +103,9 @@ resource "aws_route53_record" "aname" {
 
 resource "aws_route53_record" "cname" {
   zone_id = var.zone_id
-  name    = var.www_domain_name
+  name    = "www"
   type    = "CNAME"
   ttl     = "5"
 
-  set_identifier = var.env
   records        = [var.domain_name]
 }
