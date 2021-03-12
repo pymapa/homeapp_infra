@@ -57,4 +57,5 @@ module "cdn" {
   domain_name     = var.cdn_domain_name
   env             = var.env
   certificate_arn = var.certificate_arn
+  zone_id         = var.zone_id
 }
