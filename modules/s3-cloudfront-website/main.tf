@@ -103,7 +103,7 @@ resource "aws_route53_record" "aname" {
 
 resource "aws_route53_record" "cname" {
   zone_id = var.zone_id
-  name    = "www"
+  name    = var.www_domain_name
   type    = "CNAME"
   ttl     = "5"
 
