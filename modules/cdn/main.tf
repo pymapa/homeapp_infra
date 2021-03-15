@@ -3,7 +3,7 @@ terraform {
 }
 
 locals {
-  s3_origin_id = "cdn.${var.domain_name}"
+  s3_origin_id = var.domain_name
 }
 
 resource "aws_s3_bucket" "bucket" {
@@ -14,7 +14,7 @@ resource "aws_s3_bucket" "bucket" {
   "Version":"2012-10-17",
   "Statement":[
     {
-      "Sid":"AddPerm",
+      "Sid":"",
       "Effect":"Allow",
       "Principal": "*",
       "Action":["s3:GetObject"],
