@@ -59,3 +59,8 @@ module "cdn" {
   certificate_arn = var.certificate_arn
   zone_id         = var.zone_id
 }
+
+module "cognito" {
+  source = "./modules/cognito"
+  env    = var.env
+}
