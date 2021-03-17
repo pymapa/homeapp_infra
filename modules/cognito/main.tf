@@ -5,13 +5,6 @@ resource "aws_cognito_user_pool" "pool" {
 
   alias_attributes = ["email", "preferred_username"]
 
-  schema {
-    attribute_data_type = "String"
-    mutable             = true
-    name                = "nickname"
-    required            = true
-  }
-
   password_policy {
     minimum_length    = "8"
     require_lowercase = false
