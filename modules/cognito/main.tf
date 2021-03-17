@@ -3,7 +3,7 @@ variable "env" {}
 resource "aws_cognito_user_pool" "pool" {
   name = "homeapp-${var.env}"
 
-  alias_attributes = ["email", "preferred_username"]
+  alias_attributes = ["email"]
 
   password_policy {
     minimum_length    = "8"
