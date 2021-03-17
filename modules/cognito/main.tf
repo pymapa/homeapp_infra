@@ -63,7 +63,7 @@ resource "aws_cognito_identity_pool" "identity" {
 }
 
 resource "aws_cognito_identity_pool_roles_attachment" "id_roles" {
-  identity_pool_id = aws_cognito_identity_pool.test_app_id_pool.id
+  identity_pool_id = aws_cognito_identity_pool.identity.id
 
   roles = {
     "authenticated"   = aws_iam_role.api_gateway_access.arn
