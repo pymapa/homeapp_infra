@@ -138,7 +138,7 @@ resource "aws_iam_role" "deny_everything" {
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.test_app_id_pool.id}"
+          "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.identity.id}"
         },
         "ForAnyValue:StringLike": {
           "cognito-identity.amazonaws.com:amr": "unauthenticated"
