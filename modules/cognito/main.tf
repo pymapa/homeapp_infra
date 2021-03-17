@@ -20,6 +20,10 @@ resource "aws_cognito_user_pool" "pool" {
     "Name" = "HomeAppCognito-${var.env}"
   }
 
+  admin_create_user_config {
+    allow_admin_create_user_only = true
+  }
+
   device_configuration {
     challenge_required_on_new_device      = true
     device_only_remembered_on_user_prompt = true
