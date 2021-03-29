@@ -13,7 +13,7 @@ resource "aws_cognito_user_pool" "pool" {
 
   schema {
     attribute_data_type = "String"
-    name = "last_name"
+    name = "family_name"
     required = true
   }
 
