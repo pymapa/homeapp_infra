@@ -26,7 +26,7 @@ resource "aws_cognito_user_pool" "pool" {
   }
 
   mfa_configuration        = "OFF"
-  # auto_verified_attributes = ["email"]
+  auto_verified_attributes = ["email"]
 
   tags = {
     "Name" = "HomeAppCognito-${var.env}"
