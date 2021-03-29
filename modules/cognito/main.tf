@@ -5,6 +5,18 @@ resource "aws_cognito_user_pool" "pool" {
 
   username_attributes = [ "email" ]
 
+  schema {
+    attribute_data_type = "String"
+    name = "name"
+    required = true
+  }
+
+  schema {
+    attribute_data_type = "String"
+    name = "last_name"
+    required = true
+  }
+
   password_policy {
     minimum_length    = "8"
     require_lowercase = false
@@ -40,8 +52,8 @@ resource "aws_cognito_user_pool_client" "client" {
 
   name                   = "homeapp-client-${var.env}"
   refresh_token_validity = 30
-  read_attributes        = ["nickname"]
-  write_attributes       = ["nickname"]
+  read_attributes        = ["nickname", "email", "name"]
+  write_attributes       = ["nickname", "email", "name"]
 
   supported_identity_providers = ["COGNITO"]
   callback_urls                = ["http://localhost:3000"]
