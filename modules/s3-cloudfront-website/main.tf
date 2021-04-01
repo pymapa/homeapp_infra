@@ -48,6 +48,14 @@ resource "aws_cloudfront_distribution" "www_distribution" {
     origin_id   = local.s3_origin_id
   }
 
+  # Routing is handled inside SPA
+  custom_error_response {
+    error_caching_min_ttl = 60
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/index.html"
+  }
+
   price_class = "PriceClass_100"
 
   enabled             = true
@@ -107,5 +115,5 @@ resource "aws_route53_record" "cname" {
   type    = "CNAME"
   ttl     = "5"
 
-  records        = [var.domain_name]
+  records = [var.domain_name]
 }
