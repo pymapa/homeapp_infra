@@ -52,7 +52,7 @@ resource "aws_cognito_user_pool_client" "client" {
 
   name                   = "homeapp-client-${var.env}"
   refresh_token_validity = 30
-  read_attributes        = ["nickname", "email"]
+  read_attributes        = ["nickname", "email", "name", "family_name"]
   write_attributes       = ["nickname", "name", "family_name"]
 
   supported_identity_providers = ["COGNITO"]
